@@ -102,6 +102,11 @@ VALUES ('Dr Teach', 'me.jpg');
 Teacher.create(name: 'Dr Teach', photo: 'me.jpg')
 ```
 
+To check run 
+```ruby
+Teacher.find_by name: 'Dr Teach'
+```
+
 Sick!
 
 ## AR Models
