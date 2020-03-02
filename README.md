@@ -164,13 +164,6 @@ course.teacher # => ari
   - On the off-chance you actually want a dbconsole to execute SQL
   - Do not use this *ever* in production
 
-
-## Dirty work
-
-We are now going to build this app from scratch.
-
-`cd` into whatever directory you normally put new projects and we will follow [instructions.md](instructions.md#building-a-rails-app) together.
-
 ## Resources
 
 * [Active Record Query Interface](http://guides.rubyonrails.org/active_record_querying.html)
