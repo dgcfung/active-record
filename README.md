@@ -136,33 +136,7 @@ stacey.update(name: 'Dr. Stacey', grade: 100)
 ```
 
 
-## Active Record Relations
-
-Assume we have a few tables, `students`, `teachers`, and `courses`.  And assume that a teacher can teach many courses but a student can only belong to one course.
-
-Thus, the `students` table would have a `course_id`.  And the `course` table would have a `teacher_id`.
-
-As long as we have that, we can represent all of our relations using AR!
-
-```ruby
-class Teacher < ApplicationRecord
-    has_many :courses
-    has_and_belongs_to_many :students
-end
-
-class Course < ApplicationRecord
-    belongs_to :teacher
-    has_many :students
-end
-
-class Student < ApplicationRecord
-    belongs_to :course
-    has_and_belongs_to_many :teacher   
-end
-```
-
-Now look how much we can do without having to write any SQL!
-
+#
 ```ruby
 ari = Teacher.find_by(name: 'Professor Ari')
 ari.courses # => a bunch of courses! (Instances of Course)
@@ -176,68 +150,6 @@ course = ari.courses.first
 course.students # => a bunch of students
 course.teacher # => ari
 ```
-
-Remember that we are using an ORM but this is _still Ruby_. `Student`, `Teacher`, and `Courses` are all classes.  This means we can add our own methods
-
-```ruby
-class Course < ApplicationRecord
-  # ...
-  def grades
-    students.pluck(:grade)
-  end
-
-  def top_student
-    students.top # top scope defined in students
-  end
-
-  # finally! a random pair generator written in ruby!
-  def generate_pairs
-    students.shuffle.each_slice(2).to_a
-  end
-end
-```
-
-```ruby
-class Teacher < ApplicationRecord
-  # ...
-  def top_student
-    students.top # top scope defined in students
-  end
-
-  def say_hi
-    "Hi, I am #{name} and I teach #{courses.count} courses"
-  end
-end
-```
-
-```ruby
-class Student < ApplicationRecord
-  # ...
-
-  # this allows us to take any collection of students
-  # and call `top` on it to get the student with the best grade
-  scope :top, -> { order(grade: :desc).first }
-
-  def peers
-    Student.where(course_id: course_id)
-  end
-
-  # or even better:
-  # def peers
-  #   course.students
-  # end
-
-  # or even even better
-  # has_many :peers, through: :course, source: :students
-
-  def say_hi
-    "Hi, I am #{name} and I am #{age} years old"
-  end
-end
-```
-
-> Our `top_student` method is defined the same on two classes. If only there were a way to share this [concern](http://api.rubyonrails.org/v5.1/classes/ActiveSupport/Concern.html)...
-
 ### Commands to know
 
 * `rails s` (`rails server`)
