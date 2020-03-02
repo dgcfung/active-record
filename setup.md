@@ -4,6 +4,8 @@ To use this app
 
 * Run `bundle install` (or just `bundle`)
   - You may need to run `$ gem install nokogiri`
+  - Or `$ bundle config build.nokogiri --use-system-libraries`
+  - Then `bundle install`
 * Run `rails db:reset`
   - This will create the database, run migrations, and [seed the data](db/seeds.rb))
   - If the database already exists, it will drop it first
