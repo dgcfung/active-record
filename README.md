@@ -170,7 +170,7 @@ ari.students # => a bunch of students! (Instances of Student)
 
 stacey = Student.find(some_student_id)
 stacey.course # => the Course instance
-stacey.teachers # => a bunch of teachers (maybe ari)
+stacey.age # => age(Integer)
 
 course = ari.courses.first
 course.students # => a bunch of students
